@@ -4,7 +4,7 @@
 
 'use strict'
 
-var pg = require("../../node_modules/sails-postgresql/node_modules/pg");
+const { Client } = require('pg')
 var dbConf = require("../../config/connections");
 var _ = require("lodash");
 var url = require('url');
@@ -82,14 +82,14 @@ module.exports = {
     }
 
     // console.log("Connection Options =>", opts);
+    const client = new Client(opts);
 
-    pg.connect(opts, function (err, client, done) {
+    client.connect(function (err) {
       if (err) {
 
         if(err.code == "3D000")
         {
-          console.log("Database `" + opts.database + "` does not exist. Creating...");
-          done();
+          console.log("Database `" + opts.database + "` does not exist. Creating...");          
           return self.create(opts,next);
 
         }else{
@@ -112,19 +112,18 @@ module.exports = {
       database : "postgres"
     });
 
-    pg.connect(defaultDbOpts, function (err, client, done) {
+    const client = new Client(defaultDbOpts);
+
+    client.connect(function (err) {
       if (err) {
-        console.log(err);
-        done();
+        console.log(err);        
         return next(err);
       }
 
       client.query('CREATE DATABASE ' + opts.database, function (err, res) {
         if (err) {
-          console.log("Failed to create `" + opts.database +"`",err);
-          done();
+          console.log("Failed to create `" + opts.database +"`",err);          
           return next(err);
-
         }
 
         console.log("Database `" + opts.database + "` created! Continue...");
