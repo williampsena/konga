@@ -11,7 +11,6 @@ module.exports = {
   attributes: {
     id: {
       type: 'number',
-      columnType: 'integer',
       unique: true,
       autoIncrement: true
     },
@@ -24,6 +23,8 @@ module.exports = {
     updatedUser: {
       model: 'User',
       columnName: 'updatedUserId'
-    }    
+    },
+    createdAt: { type: 'number', autoCreatedAt: true },
+    updatedAt: { type: 'number', autoUpdatedAt: true }
   }
 };

@@ -22,7 +22,7 @@ module.exports.datastores = {
    * Installed by default.
    */
    default: {
-    adapter: require("sails-" + (process.env.DB_ADAPTER ?  process.env.DB_ADAPTER : 'disk')),
+    adapter: "sails-" + (process.env.DB_ADAPTER ?  (process.env.DB_ADAPTER == 'postgres' ? 'postgresql' : process.env.DB_ADAPTER ) : 'disk'),
     filePath:  process.env.NODE_ENV == 'test' ? './.tmp/' : ( process.env.STORAGE_PATH || './kongadata/' ),
     fileName: process.env.NODE_ENV == 'test' ? 'localDiskDb.db' : 'konga.db',
     url: process.env.DB_URI,

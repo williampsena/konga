@@ -22,11 +22,9 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
             type : 'string',
             required : true
         },
-
         lastRunAt : {
-            type: 'string', 
-            columnType: 'datetime',
-            defaultsTo : "0001-01-01"
+            type: 'number', 
+            defaultsTo : 0
         }
     },
 

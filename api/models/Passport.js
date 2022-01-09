@@ -24,7 +24,6 @@ var defaultModel = {
   attributes: {
     id: {
       type: 'number',
-      columnType: 'integer',
       unique: true,
       autoIncrement: true
     },
