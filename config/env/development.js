@@ -14,16 +14,11 @@
 var fs = require('fs');
 
 module.exports = {
-  /***************************************************************************
-   * Set the default database connection for models in the development       *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
-
   hookTimeout: process.env.KONGA_HOOK_TIMEOUT || 60000,
 
   port: process.env.PORT || 1337,
 
-  host: process.env.HOST || "0.0.0.0",
+  explicitHost: process.env.HOST || "0.0.0.0",
 
   // kong_admin_url: process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
 

@@ -1,0 +1,38 @@
+'use strict';
+
+/**
+ * Datastores
+ * (sails.config.datastores)
+ *
+ * A set of datastore configurations which tell Sails where to fetch or save
+ * data when you execute built-in model methods like `.find()` and `.create()`.
+ *
+ *  > This file is mainly useful for configuring your development database,
+ *  > as well as any additional one-off databases used by individual models.
+ *  > Ready to go live?  Head towards `config/env/production.js`.
+ *
+ * For more information on configuring datastores, check out:
+ * https://sailsjs.com/config/datastores
+ */
+
+module.exports.datastores = {
+  /**
+   * Local disk storage for DEVELOPMENT ONLY
+   *
+   * Installed by default.
+   */
+   default: {
+    adapter: require("sails-" + (process.env.DB_ADAPTER ?  process.env.DB_ADAPTER : 'disk')),
+    filePath:  process.env.NODE_ENV == 'test' ? './.tmp/' : ( process.env.STORAGE_PATH || './kongadata/' ),
+    fileName: process.env.NODE_ENV == 'test' ? 'localDiskDb.db' : 'konga.db',
+    url: process.env.DB_URI,
+    host: process.env.DB_HOST || 'localhost',
+    user:  process.env.DB_USER || 'konga',
+    password: process.env.DB_PASSWORD || 'konga',
+    port: process.env.DB_PORT || 5432,
+    database: process.env.DB_DATABASE ||'konga_database',
+    schema: process.env.DB_PG_SCHEMA ||'public',
+    poolSize: process.env.DB_POOLSIZE || 10,
+    ssl: process.env.DB_SSL ? true : false,
+  }
+};

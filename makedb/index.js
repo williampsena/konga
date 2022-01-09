@@ -5,7 +5,7 @@
 
 
 module.exports = function (next) {
-
+    
     if(process.env.NODE_ENV == 'production') return next();
 
     switch (process.env.DB_ADAPTER) {
@@ -20,7 +20,6 @@ module.exports = function (next) {
         default:
             console.log("No DB Adapter defined. Using localDB...");
             return next();
-
     }
 }
 

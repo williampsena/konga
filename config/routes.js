@@ -23,11 +23,6 @@
  */
 
 module.exports.routes = {
-  // See https://github.com/balderdashy/sails/issues/2062
-  'OPTIONS /*': function (req, res) {
-    res.send(200);
-  },
-
   '/': async (req, res) => {
 
     const baseUrl = process.env.BASE_URL ? process.env.BASE_URL : '';
@@ -36,7 +31,7 @@ module.exports.routes = {
       const usersCount = await sails.models.user.count();
 
       if(usersCount == 0) {
-        return res.redirect(baseUrl + 'register')
+        return res.redirect(baseUrl + '/register')
       }
     }
 
@@ -52,11 +47,11 @@ module.exports.routes = {
 
   'GET /register' : async (req, res) => {
 
-    const baseUrl = process.env.BASE_URL ? process.env.BASE_URL : '';
+    const baseUrl = process.env.BASE_URL ? process.env.BASE_URL : '/';
     const usersCount = await sails.models.user.count();
 
     if(usersCount > 0 || process.env.NO_AUTH === 'true') {
-      return res.redirect(baseUrl + '')
+      return res.redirect(baseUrl+ '')
     }
 
     return res.view('welcomepage', {
@@ -155,11 +150,13 @@ module.exports.routes = {
    */
 
   'GET /kong': 'KongProxyController.proxy',
-  'GET /kong/*': 'KongProxyController.listProxy',
+  'GET /kong/*': {
+    controller: 'KongProxyController',
+    action: 'listProxy',
+    skipAssets: true
+  },
   'POST /kong/*': 'KongProxyController.proxy',
   'PUT /kong/*': 'KongProxyController.proxy',
   'PATCH /kong/*': 'KongProxyController.proxy',
   'DELETE /kong/*': 'KongProxyController.proxy'
-
-
 };

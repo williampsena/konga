@@ -20,16 +20,13 @@ var _ = require('lodash');
 var defaultModel = {
   schema: true,
   tableName : "konga_passports",
-  autoPK : false,
-
+  primaryKey: 'id',
   attributes: {
-
-
-    id : {
-      type: 'integer',
-      primaryKey: true,
+    id: {
+      type: 'number',
+      columnType: 'integer',
       unique: true,
-      autoIncrement : true
+      autoIncrement: true
     },
 
     /**
@@ -41,7 +38,7 @@ var defaultModel = {
      * party service (e.g. 'oauth', 'oauth2', 'openid').
      */
     protocol: {
-      type: 'alphanumeric',
+      type: 'string',
       required: true
     },
 
@@ -70,7 +67,7 @@ var defaultModel = {
      * and a `refreshToken` will be issued.
      */
     provider: {
-      type: 'alphanumericdashed'
+      type: 'string'
     },
 
     identifier: {
@@ -92,17 +89,18 @@ var defaultModel = {
      */
     user: {
       model: 'User'
-    },
+    },    
+  },
 
-    /**
+  /**
      * Validate password used by the local strategy.
      *
+     * @param   {Passport}    passport    The passport password to validate
      * @param   {string}    password    The password to validate
      * @param   {Function}  next
      */
-    validatePassword: function validatePassword(password, next) {
-      bcrypt.compare(password, this.password, next);
-    }
+   validatePassword: function (passport, password, next) {
+    bcrypt.compare(password, passport.password, next);
   },
 
   /**
@@ -149,7 +147,6 @@ var defaultModel = {
 
 var mongoModel = function() {
   var obj = _.cloneDeep(defaultModel)
-  delete obj.autoPK
   delete obj.attributes.id
   return obj;
 }

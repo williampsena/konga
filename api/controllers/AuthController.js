@@ -4,6 +4,7 @@ var async = require('async');
 var _ = require('lodash');
 var uuidv4 = require('uuid/v4');
 var UserSignUp = require("../events/user-events")
+var Passport = require("../models/passport")
 
 /**
  * Authentication Controller
@@ -342,7 +343,7 @@ var AuthController = {
     var validatePassword = function validatePassword(passport, next) {
       var password = request.param('password');
 
-      passport.validatePassword(password, function callback(error, matched) {
+      Passport.validatePassword(passport, password, function callback(error, matched) {
         if (error) {
           next({message: 'Invalid password'});
         } else {

@@ -10,14 +10,7 @@ var _ = require('lodash');
  */
 var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     tableName: "konga_email_transports",
-    autoPK: false,
     attributes: {
-        id: {
-            type: 'integer',
-            primaryKey: true,
-            unique: true,
-            autoIncrement: true
-        },
         name: {
             type: 'string',
             required: true,
@@ -126,7 +119,6 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
 var mongoModel = function () {
     var obj = _.cloneDeep(defaultModel)
-    delete obj.autoPK
     delete obj.attributes.id
     return obj;
 }
