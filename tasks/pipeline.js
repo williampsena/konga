@@ -34,7 +34,7 @@ var cssFilesToInject = [
 var jsFilesToInject = [
 
   // Load sails.io before everything else
-  //'js/dependencies/sails.io.js',
+  'js/dependencies/sails.io.js',
 
   "bower_components/jquery/dist/jquery.js",
   "bower_components/angular/angular.js",
@@ -50,7 +50,6 @@ var jsFilesToInject = [
   "bower_components/angular-xeditable/dist/js/xeditable.js",
   "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
   "bower_components/bootstrap/dist/js/bootstrap.js",
-  "bower_components/angularSails/dist/ngsails.io.js",
   "bower_components/ngstorage/ngStorage.js",
   "bower_components/bootswatch-dist/js/bootstrap.js",
   "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",

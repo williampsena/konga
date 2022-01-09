@@ -153,7 +153,7 @@ module.exports.routes = {
   'GET /kong/*': {
     controller: 'KongProxyController',
     action: 'listProxy',
-    skipAssets: true
+    skipAssets: false
   },
   'POST /kong/*': 'KongProxyController.proxy',
   'PUT /kong/*': 'KongProxyController.proxy',

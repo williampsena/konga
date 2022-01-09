@@ -56,7 +56,7 @@
     "sails-sqlserver": "^2.0.2",
     "sendmail": "^1.6.1",
     "socket.io-redis": "5.2.0",
-    "unirest": "git+https://git@github.com/pantsel/unirest-nodejs.git#master",
+    "unirest": "0.6.0",
     "uuid": "^3.4.0",
     "validator": "4.2.1"
   },

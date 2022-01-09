@@ -4,7 +4,7 @@ var async = require('async');
 var _ = require('lodash');
 var uuidv4 = require('uuid/v4');
 var UserSignUp = require("../events/user-events")
-var Passport = require("../models/passport")
+var Passport = require("../models/Passport")
 
 /**
  * Authentication Controller

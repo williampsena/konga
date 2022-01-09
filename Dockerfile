@@ -1,15 +1,21 @@
 FROM node:16.13-alpine
 
-COPY . /app
+RUN apk upgrade --update \
+    && apk add bash git ca-certificates \
+    && npm install -g bower
+
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+COPY bower.json /app/bower.json
 
 WORKDIR /app
 
-RUN apk upgrade --update \
-    && apk add bash git ca-certificates \
-    && npm install -g bower\
-    && npm --unsafe-perm --production install \
-    && apk del git \
-    && rm -rf /var/cache/apk/* \
+RUN npm --unsafe-perm --production ci \
+    && apk del git
+
+COPY . /app
+
+RUN rm -rf /var/cache/apk/* \
         /app/.git \
         /app/screenshots \
         /app/test \
