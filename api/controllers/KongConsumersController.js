@@ -12,7 +12,7 @@ var KongConsumersController = {
 
     // Fetch all acls of the specified consumer
     Kong.listAllCb(req, '/consumers/' + consumerId + '/acls', function (err, _acls) {
-      if (err) return res.negotiate(err);
+      if (err) return res.serverError(err);
 
       // Make an array of group names
       var consumerGroups = _.map(_acls.data, function (item) {
@@ -21,7 +21,7 @@ var KongConsumersController = {
 
       // Fetch all apis
       Kong.listAllCb(req, '/apis', function (err, data) {
-        if (err) return res.negotiate(err);
+        if (err) return res.serverError(err);
 
         var apis = data.data;
 
@@ -40,7 +40,7 @@ var KongConsumersController = {
 
         // Foreach api, fetch it's assigned plugins
         async.series(apiPluginsFns, function (err, data) {
-          if (err) return res.negotiate(err);
+          if (err) return res.serverError(err);
 
           data.forEach(function (plugins, index) {
 
@@ -236,8 +236,8 @@ var KongConsumersController = {
         total : filtered.length,
         data  : filtered
       });
-    }catch (e) {
-      return res.negotiate(e);
+    }catch (err) {
+      return res.serverError(err);
     }
 
   },
@@ -320,7 +320,7 @@ var KongConsumersController = {
 
       // Foreach route, fetch it's assigned plugins
       async.series(routePluginsFns,function (err,data) {
-        if(err) return res.negotiate(err);
+        if(err) return res.serverError(err);
 
         data.forEach(function(plugins,index){
 
@@ -366,8 +366,8 @@ var KongConsumersController = {
           data  : _.uniqBy(open.concat(eligible), 'id')
         });
       });
-    }catch(e) {
-      return res.negotiate(e);
+    }catch(err) {
+      return res.serverError(err);
     }
   }
 

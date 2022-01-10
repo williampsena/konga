@@ -308,7 +308,7 @@
 <!--SCRIPTS END-->
 
 <script type="text/javascript">
-  io.sails.path = "<%= typeof base_url != 'undefined' ? (base_url.endsWith('/') ? '' : '/') : '/' %>"  + "socket.io";
+  io.sails.path = "<%= typeof base_url != 'undefined' ? base_url + (base_url.endsWith('/') ? '' : '/') : '/' %>"  + "socket.io";
 </script>
 
 <% }%>

@@ -62,7 +62,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             return res.json(user);
         }catch(err){
             sails.log.error('error on update user', err);
-            return res.negotiate(err);
+            return res.serverError(err);
         }        
     }
 });

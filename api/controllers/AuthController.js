@@ -115,7 +115,7 @@ var AuthController = {
             password: data.password,
             user: user.id
           }).exec(function (err, passport) {
-          if (err) return res.negotiate(err)
+          if (err) return res.serverError(err)
 
           return res.redirect(process.env.BASE_URL || '')
         })
@@ -140,7 +140,7 @@ var AuthController = {
       .find()
       .limit(1)
       .exec(function (err, settings) {
-        if (err) return res.negotiate(err)
+        if (err) return res.serverError(err)
         var _settings = settings[0].data;
 
         if (!_settings.signup_require_activation) {
@@ -151,7 +151,7 @@ var AuthController = {
         sails.models.user
           .create(data)
           .exec(function (err, user) {
-            if (err) return res.negotiate(err)
+            if (err) return res.serverError(err)
 
             sails.models.passport
               .create({
@@ -159,7 +159,7 @@ var AuthController = {
                 password: passports.password,
                 user: user.id
               }).exec(function (err, passport) {
-              if (err) return res.negotiate(err)
+              if (err) return res.serverError(err)
 
               // Emit signUp event
               UserSignUp.emit('user.signUp', {
@@ -190,14 +190,14 @@ var AuthController = {
       activationToken: token,
       active: false
     }).exec(function (err, user) {
-      if (err) return res.negotiate(err)
+      if (err) return res.serverError(err)
       if (!user) return res.notFound('Invalid token')
 
       sails.models.user.update({
         id: user.id
       }, {active: true})
         .exec(function (err, updated) {
-          if (err) return res.negotiate(err)
+          if (err) return res.serverError(err)
           return res.redirect('/#!/login?activated=' + req.param('token'))
         })
     })

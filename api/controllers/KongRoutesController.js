@@ -140,7 +140,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     // Fetch all consumers
     KongService.listAllCb(req, `/consumers`, (err, consumers) => {
-      if (err) return res.negotiate(err);
+      if (err) return res.serverError(err);
       if(!consumers.data || !consumers.data.length) return res.json([]);
 
 
