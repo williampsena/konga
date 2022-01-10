@@ -99,9 +99,13 @@
 
 
 <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+<script src="js/dependencies/sails.io.js?r=0.15.0"></script>
+<script type="text/javascript">
+  io.sails.path = "<%= typeof base_url != 'undefined' ? base_url + (base_url.endsWith('/') ? '' : '/') : '/' %>"  + "socket.io";
+</script>
 
 <!--SCRIPTS-->
-<script src="js/dependencies/sails.io.js?r=0.15.0"></script>
+
 <script src="bower_components/jquery/dist/jquery.js?r=0.15.0"></script>
 <script src="bower_components/angular/angular.js?r=0.15.0"></script>
 <script src="bower_components/angular-animate/angular-animate.js?r=0.15.0"></script>
@@ -306,10 +310,6 @@
 <script src="js/app/users/user-model.js?r=0.15.0"></script>
 <script src="js/app/users/users-controller.js?r=0.15.0"></script>
 <!--SCRIPTS END-->
-
-<script type="text/javascript">
-  io.sails.path = "<%= typeof base_url != 'undefined' ? base_url + (base_url.endsWith('/') ? '' : '/') : '/' %>"  + "socket.io";
-</script>
 
 <% }%>
 
