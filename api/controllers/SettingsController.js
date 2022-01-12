@@ -15,7 +15,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.models.settings.find().limit(1)
       .exec(function (err, settings) {
 
-        if (err) return res.negotiate(err)
+        if (err) return res.serverError(err)
 
         var _settings = settings[0];
         if(!_settings) {
@@ -36,7 +36,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.models.settings.find().limit(1)
       .exec(function (err, settings) {
 
-        if (err) return res.negotiate(err)
+        if (err) return res.serverError(err)
 
         if(!settings[0]) {
           return res.json({})

@@ -22,16 +22,16 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     update : function(req,res){
         sails.models.kongnode.findOne({id:req.params.id}).exec(function afterwards(err, node){
 
-            if (err) return res.negotiate(err);
+            if (err) return res.serverError(err);
             sails.models.kongnode.update({id:req.params.id},req.body).exec(function afterwards(err, resp){
 
-                if (err) return res.negotiate(err);
+                if (err) return res.serverError(err);
                 if(req.body.active && node.active != req.body.active) {
                     sails.models.kongnode.update({
                         where: { id:{ '!': req.params.id } },
 
                     },{active:false}).exec(function afterwards(err, upd){
-                        if (err) return res.negotiate(err);
+                        if (err) return res.serverError(err);
                         return  res.json(resp[0])
                     })
                 }else{
@@ -47,7 +47,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
         sails.models.kongnode.create(req.body)
             .exec(function(err, node){
                 if(err) {
-                    return res.negotiate(err);
+                    return res.serverError(err);
                 }
 
                 if(process.env.NODE_ENV == 'test') {
@@ -65,7 +65,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                             kong_version : info.version
                         }).exec(function (err, _node) {
                             if(err) {
-                                return res.negotiate(err);
+                                return res.serverError(err);
                             }
 
                             return res.created(_node);

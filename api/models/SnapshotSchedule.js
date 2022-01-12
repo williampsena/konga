@@ -5,14 +5,7 @@ var Scheduler = require("../services/SnapshotsScheduler");
 
 var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     tableName: "konga_kong_snapshot_schedules",
-    autoPK: false,
     attributes: {
-        id: {
-            type: 'integer',
-            primaryKey: true,
-            unique: true,
-            autoIncrement: true
-        },
         // name: {
         //     type: 'string',
         //     required: true,
@@ -29,10 +22,9 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
             type : 'string',
             required : true
         },
-
         lastRunAt : {
-            type : 'date',
-            defaultsTo : null
+            type: 'number', 
+            defaultsTo : 0
         }
     },
 
@@ -87,7 +79,6 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
 var mongoModel = function () {
     var obj = _.cloneDeep(defaultModel)
-    delete obj.autoPK
     delete obj.attributes.id
     return obj;
 }

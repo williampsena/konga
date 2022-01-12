@@ -24,7 +24,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             connection : req.body.connection
         }).exec(function(err,results){
             if(err) {
-                return res.negotiate(err);
+                return res.serverError(err);
             }
 
             if(results && results.length > 0) {
@@ -38,7 +38,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             sails.models.snapshotschedule.create(req.body)
                 .exec(function (err,created) {
                     if(err) {
-                        return res.negotiate(err);
+                        return res.serverError(err);
                     }
 
 

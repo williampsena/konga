@@ -5,7 +5,7 @@
 'use strict'
 
 const { Client } = require('pg')
-var dbConf = require("../../config/connections");
+var dbConf = require("../../config/datastores");
 var _ = require("lodash");
 var url = require('url');
 
@@ -64,13 +64,13 @@ module.exports = {
     console.log("Using postgres DB Adapter.");
 
     var self     = this;
-    var url      = dbConf.connections.postgres.url;
-    var user     = dbConf.connections.postgres.user;
-    var password = dbConf.connections.postgres.password;
-    var dbName   = dbConf.connections.postgres.database;
-    var dbHost   = dbConf.connections.postgres.host;
-    var dbPort   = dbConf.connections.postgres.port;
-    var ssl      = dbConf.connections.postgres.ssl;
+    var url      = dbConf.datastores.default.url;
+    var user     = dbConf.datastores.default.user;
+    var password = dbConf.datastores.default.password;
+    var dbName   = dbConf.datastores.default.database;
+    var dbHost   = dbConf.datastores.default.host;
+    var dbPort   = dbConf.datastores.default.port;
+    var ssl      = dbConf.datastores.default.ssl;
 
     var opts = url ? parse(url) : {
       user: user,

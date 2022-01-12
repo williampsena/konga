@@ -14,14 +14,12 @@ var async = require("async");
  * http://sailsjs.org/#/documentation/concepts/ORM
  */
 module.exports.models = {
-    /***************************************************************************
-     *                                                                          *
-     * Your app's default connection. i.e. the name of one of your app's        *
-     * connections (see `config/connections.js`)                                *
-     *                                                                          *
-     ***************************************************************************/
-    connection: process.env.DB_ADAPTER || 'localDiskDb',
+    datastore: 'default',
     migrate: 'alter',
+    fetchRecordsOnUpdate: true,
+    fetchRecordsOnDestroy: true,
+    fetchRecordsOnCreate: true,
+    fetchRecordsOnCreateEach: true,
 
     updateOrCreate: function(criteria, values, cb){
         var self = this; // reference for use by callbacks
@@ -45,109 +43,66 @@ module.exports.models = {
      * To use add a variable 'seedData' in your model and call the
      * method in the bootstrap.js file
      */
-    seed: function (callback) {
+    seed: async function () {
         var self = this;
-        var modelName = self.adapter.identity.charAt(0).toUpperCase() + self.adapter.identity.slice(1);
+        var modelName = this.identity.charAt(0).toUpperCase() + this.identity.slice(1);
+        
         if (!self.seedData) {
-            sails.log.debug('No data available to seed ' + modelName);
-            callback();
+            sails.log.debug('No data available to seed ' + modelName);            
             return;
         }
-        self.count().exec(function (err, count) {
 
-            if(err) {
-                sails.log.error("Failed to seed " + modelName, err);
-                return callback();
+        var count = await self.count();            
+
+        if(count === 0) {
+            sails.log.debug('Seeding ' + modelName + '...');
+            if (self.seedData instanceof Array) {
+                await self.seedArray();
+            } else {
+                await self.seedObject();
             }
-
-            if(count === 0) {
-                sails.log.debug('Seeding ' + modelName + '...');
-                if (self.seedData instanceof Array) {
-                    self.seedArray(callback);
-                } else {
-                    self.seedObject(callback);
-                }
+        }else{
+            if(modelName === 'Emailtransport') {
+                // Update records
+                await self.updateRecords();
             }else{
-                if(modelName === 'Emailtransport') {
-                    // Update records
-                    self.updateRecords(callback);
-                }else{
-                    sails.log.debug(modelName + ' had models, so no seed needed');
-                    return callback();
-                }
+                sails.log.debug(modelName + ' had models, so no seed needed');                   
             }
+        }
+    },
+
+    updateRecords : async function () {
+        var self = this;
+        var results = await self.find({});
+
+        var data = [];
+
+        self.seedData.forEach(function (seed) {
+
+            const updateItem = _.find(results, (item) => {
+                return item.name === seed.name;
+            })
+
+            if(updateItem) data.push(_.merge(seed, updateItem));
+        });
+
+        data.forEach(async function (item) {            
+            await self.update({
+                id :item.id
+            },_.omit(item, ["id"]));            
         });
     },
 
-    updateRecords : function (callback) {
+    seedArray: async function () {
         var self = this;
-        var modelName = self.adapter.identity.charAt(0).toUpperCase() + self.adapter.identity.slice(1);
-        self.find({}).exec(function (err, results) {
-            if (err) {
-                sails.log.debug(err);
-                callback();
-            } else {
-
-
-
-                var data = [];
-
-                self.seedData.forEach(function (seed) {
-
-                    const updateItem = _.find(results, (item) => {
-                        return item.name === seed.name;
-                    })
-
-                    if(updateItem) data.push(_.merge(seed, updateItem));
-                })
-
-                var fns = [];
-
-                data.forEach(function (item) {
-                    fns.push(function(cb){
-                        self.update({
-                            id :item.id
-                        },_.omit(item, ["id"])).exec(cb)
-                    })
-                })
-
-                async.series(fns,function (err,data) {
-                    if (err) {
-                        sails.log.debug(err);
-                        callback();
-                    }else{
-                        sails.log.debug(modelName + ' seeds updated');
-                        callback();
-                    }
-                })
-            }
-        });
+        var modelName = self.identity.charAt(0).toUpperCase() + self.identity.slice(1);
+        await self.createEach(self.seedData)
+        sails.log.debug(modelName + ' seed planted');                
     },
-
-    seedArray: function (callback) {
+    seedObject: async function () {
         var self = this;
-        var modelName = self.adapter.identity.charAt(0).toUpperCase() + self.adapter.identity.slice(1);
-        self.createEach(self.seedData).exec(function (err, results) {
-            if (err) {
-                sails.log.debug(err);
-                callback();
-            } else {
-                sails.log.debug(modelName + ' seed planted');
-                callback();
-            }
-        });
-    },
-    seedObject: function (callback) {
-        var self = this;
-        var modelName = self.adapter.identity.charAt(0).toUpperCase() + self.adapter.identity.slice(1);
-        self.create(self.seedData).exec(function (err, results) {
-            if (err) {
-                sails.log.debug(err);
-                callback();
-            } else {
-                sails.log.debug(modelName + ' seed planted');
-                callback();
-            }
-        });
+        var modelName = self.identity.charAt(0).toUpperCase() + self.identity.slice(1);
+        await self.create(self.seedData);
+        sails.log.debug(modelName + ' seed planted');      
     }
 };

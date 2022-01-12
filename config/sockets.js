@@ -45,7 +45,7 @@ module.exports.sockets = {
   adapter: process.env.SOCKET_ADAPTER || 'memory',
   host: process.env.REDIS_HOST || 'localhost',
   port: process.env.REDIS_PORT || 6379,
-  db: process.env.REDIS_DB || 'konga',
+  db: process.env.REDIS_DB || 0,
   pass: process.env.REDIS_PASS || null,
   //
   // -OR-
@@ -130,9 +130,7 @@ module.exports.sockets = {
     'websocket',
     'htmlfile',
     'polling'
-  ],
-
-  origins: '*:*',
+  ]
 
   // More configuration options for Sails+Socket.io:
   // http://sailsjs.org/#/documentation/reference/sails.config/sails.config.sockets.html

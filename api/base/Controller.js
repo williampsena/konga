@@ -16,7 +16,13 @@ module.exports = {
    * @param   {Response}  response
    */
   count: function count(request, response) {
-    var Model = actionUtil.parseModel(request);
+    var model = request.options.action.split('/')[0];
+    if (!model) { throw new Error(util.format('No "model" specified in route options.')); }
+
+    // Get the model class.
+    var Model = request._sails.models[model];
+
+    if ( !Model ) { throw new Error(util.format('Invalid route option, "model".\nI don\'t know about any models named: `%s`',model)); }
 
     Model
       .count(actionUtil.parseCriteria(request))

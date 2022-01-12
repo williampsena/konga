@@ -5,7 +5,7 @@
 'use strict'
 
 var mysql = require("../../node_modules/sails-mysql/node_modules/mysql");
-var dbConf = require("../../config/connections");
+var dbConf = require("../../config/datastores");
 var URL = require('url');
 var _ = require('lodash');
 
@@ -33,22 +33,22 @@ module.exports = {
   create : function(next) {
 
     var parsedOpts;
-    var url = dbConf.connections.mysql.url;
+    var url = dbConf.datastores.default.url;
     if(url) {
       parsedOpts = parse(url);
     }
 
 
     var connection = mysql.createConnection(url ? _.omit(parsedOpts,['database']) : {
-      host     : dbConf.connections.mysql.host,
-      port     : dbConf.connections.mysql.port,
-      user     : dbConf.connections.mysql.user,
-      password : dbConf.connections.mysql.password
+      host     : dbConf.datastores.default.host,
+      port     : dbConf.datastores.default.port,
+      user     : dbConf.datastores.default.user,
+      password : dbConf.datastores.default.password
     });
 
-    console.log("Creating database `" + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ) + "` if not exists.");
+    console.log("Creating database `" + ( parsedOpts ? parsedOpts.database : dbConf.datastores.default.database ) + "` if not exists.");
 
-    connection.query('CREATE DATABASE IF NOT EXISTS ' + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ), function (error, results, fields) {
+    connection.query('CREATE DATABASE IF NOT EXISTS ' + ( parsedOpts ? parsedOpts.database : dbConf.datastores.default.database ), function (error, results, fields) {
       if (error) {
         console.error(error);
         return next(error);

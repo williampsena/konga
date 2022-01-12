@@ -111,18 +111,7 @@ module.exports.blueprints = {
    ***************************************************************************/
   pluralize: false,
 
-  /***************************************************************************
-   *                                                                          *
-   * Whether the blueprint controllers should populate model fetches with     *
-   * data from other models which are linked by associations                  *
-   *                                                                          *
-   * If you have a lot of data in one-to-many associations, leaving this on   *
-   * may result in very heavy api calls                                       *
-   *                                                                          *
-   ***************************************************************************/
-  populate: false,
-
-  /****************************************************************************
+   /****************************************************************************
    *                                                                           *
    * Whether to run Model.watch() in the find and findOne blueprint actions.   *
    * Can be overridden on a per-model basis.                                   *
@@ -143,5 +132,21 @@ module.exports.blueprints = {
    * true.                                                                     *
    *                                                                           *
    ****************************************************************************/
-  defaultLimit: 4294967295
+   parseBlueprintOptions: function(req) {
+
+    // Get the default query options.
+    var queryOptions = req._sails.hooks.blueprints.parseBlueprintOptions(req);
+  
+    // If this is the "find" or "populate" blueprint action, and the normal query options
+    // indicate that the request is attempting to set an exceedingly high `limit` clause,
+    // then prevent it (we'll say `limit` must not exceed 100).
+    if (req.options.blueprintAction === 'find' || req.options.blueprintAction === 'populate') {
+      if (queryOptions.criteria.limit > 100) {
+        queryOptions.criteria.limit = 100;
+      }
+    }
+  
+    return queryOptions;
+  
+  }
 };

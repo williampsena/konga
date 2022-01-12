@@ -109,7 +109,7 @@ var self = module.exports = {
     sails.log.debug("KongProxyController:listAllEntityRecords:entity", entity)
 
     KongService.listAllCb(req, req.url, (err, data) => {
-      if(err) return res.negotiate(err);
+      if(err) return res.serverError(err);
       return res.json(data);
     })
   },
@@ -132,7 +132,7 @@ var self = module.exports = {
     unirestReq.end(function (response) {
       if (response.error) {
         sails.log.error("KongProxyController", "request error", response.body);
-        return res.negotiate(response);
+        return res.serverError(response);
       }
 
 

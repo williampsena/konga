@@ -9,6 +9,12 @@ var _ = require("lodash");
 
 module.exports = {
 
+  friendlyName: 'Utils helper migration',
+  description: 'Utils helper migration.',
+  fn: function (inputs, exits) {
+    return exits.success("");
+  },
+
   getMinutesDiff: function (start, end) {
     var duration = moment.duration(moment(start).diff(moment(end)));
     return duration.asMinutes();

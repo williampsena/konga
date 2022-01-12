@@ -1,6 +1,6 @@
 {
   "name": "kongadmin",
-  "version": "0.14.9",
+  "version": "0.15.0",
   "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
@@ -11,7 +11,6 @@
   "dependencies": {
     "@slack/client": "^3.16.0",
     "async": "1.5.0",
-    "barrels": "^1.6.5",
     "bcryptjs": "2.3.0",
     "bluebird": "3.0.5",
     "bower": "^1.8.8",
@@ -38,7 +37,7 @@
     "mkdirp": "^0.5.5",
     "moment": "^2.25.1",
     "node-cron": "^1.2.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^6.0.1",
     "nodemailer": "^4.7.0",
     "nodemailer-mailgun-transport": "^1.4.0",
     "passport": "0.3.0",
@@ -46,27 +45,33 @@
     "passport-local": "1.0.0",
     "pg": "^8.7.1",
     "rc": "^1.2.8",
-    "sails": "~0.12.14",
-    "sails-disk": "^0.10.10",
-    "sails-mongo": "^0.12.3",
-    "sails-mysql": "^0.11.5",
-    "sails-postgresql": "^0.11.4",
-    "sails-sqlserver": "^0.10.8",
+    "sails": "^1.5.0",
+    "sails-disk": "^2.1.1",
+    "sails-hook-grunt": "^5.0.0",
+    "sails-hook-orm": "^4.0.0",
+    "sails-hook-sockets": "^2.0.1",
+    "sails-mongo": "^2.0.0",
+    "sails-mysql": "^2.0.0",
+    "sails-postgresql": "^4.0.0",
+    "sails-sqlserver": "^2.0.2",
     "sendmail": "^1.6.1",
-    "socket.io-redis": "~1.0.0",
-    "unirest": "git+https://git@github.com/pantsel/unirest-nodejs.git#master",
+    "socket.io-redis": "5.2.0",
+    "unirest": "0.6.0",
     "uuid": "^3.4.0",
     "validator": "4.2.1"
   },
   "devDependencies": {
     "chai": "3.4.0",
+    "fixted": "^3.0.2",
+    "grunt-contrib-coffee": "^2.1.0",
+    "grunt-contrib-less": "^3.0.0",
     "mocha": "^5.2.0",
     "should": "7.1.1",
     "supertest": "1.1.0"
   },
   "scripts": {
-    "postinstall": "bower --allow-root install && patch-package",
-    "start": "node --harmony app.js",
+    "postinstall": "bower --allow-root install",
+    "start": "node app.js",
     "production": "node --harmony app.js --prod",
     "debug": "node debug app.js",
     "test": "mocha",
@@ -75,7 +80,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pantsel/konga.git"
+    "url": "https://github.com/leobeckp/konga"
   },
   "author": "Tselentis Panagis",
   "license": "MIT"

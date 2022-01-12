@@ -122,7 +122,7 @@
            */
           update: function update(endPoint, identifier, data) {
             return $sailsSocket
-              .put(_parseEndPointUrl(endPoint, identifier), data);
+              .patch(_parseEndPointUrl(endPoint, identifier), data);
           },
 
 

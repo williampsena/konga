@@ -1,6 +1,7 @@
 'use strict';
 
 var validator = require('validator');
+var Passport = require('../../models/Passport');
 
 /**
  * Local Authentication Protocol
@@ -97,7 +98,7 @@ exports.login = function login(request, identifier, password, next) {
             sails.log("Passport:Policy:local:findUserPassport:error =>",error)
             sails.log("Passport:Policy:local:findUserPassport =>",passport)
             if (passport) {
-              passport.validatePassword(password, function callback(error, response) {
+              Passport.validatePassword(passport, password, function callback(error, response) {
                 if (error) {
                   next(error);
                 } else if (!response) {
