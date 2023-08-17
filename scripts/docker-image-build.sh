@@ -13,13 +13,10 @@ build_docker() {
     docker tag $image $tag
 
     [[ $VERSION == "all" ]] && docker tag $image latest
-
-    #docker push $image $tag
 }
 
 push_latest() {
     docker tag $IMAGE_BASE:$VERSION latest
-    #docker push $IMAGE_BASE:latest
 }
 
 build_docker "all" $VERSION
