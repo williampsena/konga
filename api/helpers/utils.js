@@ -43,7 +43,7 @@ module.exports = {
     if (!slack || !slack.config.enabled) return;
 
     // Send notification to slack
-    var IncomingWebhook = require('@slack/client').IncomingWebhook;
+    const { IncomingWebhook } = require('@slack/webhook');
 
     var field = _.find(slack.config.fields, function (item) {
       return item.id == 'slack_webhook_url'
