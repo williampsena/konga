@@ -1,7 +1,9 @@
-FROM node:16.13-alpine
+FROM node:16-alpine
+
+ARG DB_ADAPTER=all
 
 RUN apk upgrade --update \
-    && apk add bash git ca-certificates \
+    && apk add bash git ca-certificates python3 \
     && npm install -g bower
 
 COPY package.json /app/package.json
@@ -10,7 +12,11 @@ COPY bower.json /app/bower.json
 
 WORKDIR /app
 
-RUN npm --unsafe-perm --production ci \
+COPY ./scripts/clean_packages.sh /app/clean_packages.sh
+
+RUN bash /app/clean_packages.sh ${DB_ADAPTER}
+
+RUN npm --unsafe-perm --omit=dev ci \
     && apk del git
 
 COPY . /app
@@ -22,9 +28,11 @@ RUN rm -rf /var/cache/apk/* \
     && adduser -H -S -g "Konga service owner" -D -u 1200 -s /sbin/nologin konga \
     && mkdir /app/kongadata /app/.tmp \
     && chown -R 1200:1200 /app/views /app/kongadata /app/.tmp
-
+    
 EXPOSE 1337
 
 VOLUME /app/kongadata
+
+USER konga
 
 ENTRYPOINT ["/app/start.sh"]

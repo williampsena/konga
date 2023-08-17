@@ -45,7 +45,7 @@
     "passport-local": "1.0.0",
     "pg": "^8.7.1",
     "rc": "^1.2.8",
-    "sails": "^1.5.0",
+    "sails": "^1.5.7",
     "sails-disk": "^2.1.1",
     "sails-hook-grunt": "^5.0.0",
     "sails-hook-orm": "^4.0.0",
@@ -80,13 +80,12 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/leobeckp/konga"
+    "url": "https://github.com/williampsena/konga"
   },
   "author": "Tselentis Panagis",
   "license": "MIT",
   "overrides": {
     "@xmldom/xmldom": "^0.7.7",
-    "ejs": "^2.7.4",
     "getobject": "^1.0.0",
     "handlebars": "^4.3.0",
     "https-proxy-agent": "2.2.0",

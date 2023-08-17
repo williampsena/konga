@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Built-in Log Configuration
@@ -11,6 +11,12 @@
  * For more information on the Sails logger, check out:
  * http://sailsjs.org/#/documentation/concepts/Logging
  */
+
+function getFilePathConfig() {
+  var filePath = process.env.LOG_FILE_PATH;
+
+  return filePath ? { filePath: filePath } : {};
+}
 module.exports = {
   /***************************************************************************
    *                                                                          *
@@ -24,7 +30,7 @@ module.exports = {
    *                                                                          *
    ***************************************************************************/
   log: {
-    level: 'info',
-    filePath: 'logs/application.log'
-  }
+    level: process.env.KONGA_LOG_LEVEL || "info",
+    ...getFilePathConfig(),
+  },
 };
