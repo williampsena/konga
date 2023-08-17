@@ -83,5 +83,19 @@
     "url": "https://github.com/leobeckp/konga"
   },
   "author": "Tselentis Panagis",
-  "license": "MIT"
+  "license": "MIT",
+  "overrides": {
+    "@xmldom/xmldom": "^0.7.7",
+    "ejs": "^2.7.4",
+    "getobject": "^1.0.0",
+    "handlebars": "^4.3.0",
+    "https-proxy-agent": "2.2.0",
+    "json-schema": "^0.4.0",
+    "knex": "^0.19.5",
+    "lodash": "^4.17.15",
+    "minimist": "^1.2.5",
+    "nodemailer": "^4.7.0",
+    "shell-quote": "^1.7.3",
+    "socket.io-parser": "^3.4.2"
+  }
 }
