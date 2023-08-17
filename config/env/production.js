@@ -24,7 +24,7 @@ module.exports = {
   },
   
   sockets: {
-    onlyAllowOrigins: [process.env.KONG_URL || "http://localhost:1337"],
+    onlyAllowOrigins: [process.env.KONGA_URL || "http://localhost:1337"],
   },
 
   // kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',

@@ -1,3 +1,9 @@
+# Attention
+
+> This fork is an attempt to address Konga's security vulnerabilities by lowering the number of default node packages. As a database, I propose Mongo or Sqlite.
+
+A pushed image at https://hub.docker.com/repository/docker/willsenabr/konga is the outcome of this.
+
 ## More than just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)    [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 
@@ -105,6 +111,7 @@ These are the general environment variables Konga uses.
 | NODE_ENV           | The environment                                                                                                            | `production`,`development`             | `development`                                |
 | SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
 | SSL_CRT_PATH       | If you want to use SSL, this will be the absolute path to the .crt file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
+| KONGA_URL | The base frontend url | - | http://localhost:1337
 | KONGA_HOOK_TIMEOUT | The time in ms that Konga will wait for startup tasks to finish before exiting the process.                                | -                                      | 60000                                        |
 | DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`     | -                                            |
 | DB_URI             | The full db connection string. Depends on `DB_ADAPTER`. If this is set, no other DB related var is needed.                 | -                                      | -                                            |
