@@ -54,9 +54,6 @@
     "sails-hook-orm": "^4.0.2",
     "sails-hook-sockets": "^2.0.4",
     "sails-mongo": "^2.0.1",
-    "sails-mysql": "^3.0.1",
-    "sails-postgresql": "^5.0.1",
-    "sails-sqlserver": "^2.0.2",
     "sendmail": "^1.6.1",
     "socket.io-redis": "5.4.0",
     "unirest": "0.6.0",
@@ -89,9 +86,10 @@
   "license": "MIT",
   "overrides": {
     "@xmldom/xmldom": "^0.7.7",
-    "https-proxy-agent": "2.2.0",
+    "https-proxy-agent": "2.2.3",
     "knex": "^0.19.5",
     "socket.io-parser": "^3.4.2",
-    "flaverr": "^1.10.0"
+    "flaverr": "^1.10.0",
+    "meow": "^9.0.0"
   }
 }
