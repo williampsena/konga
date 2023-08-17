@@ -2,7 +2,7 @@
 
 var async = require('async');
 var _ = require('lodash');
-var uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 var UserSignUp = require("../events/user-events")
 var Passport = require("../models/Passport")
 

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * app.js
@@ -19,48 +19,54 @@
  * The same command-line arguments are supported, e.g.:
  * `node app.js --silent --port=80 --prod`
  */
-require('dotenv').config()
+require("dotenv").config();
 
 // Ensure a "sails" can be located:
 let sails;
 
 try {
-  sails = require('sails');
+  sails = require("sails");
 } catch (e) {
-  console.error('To run an app using `node app.js`, you usually need to have a version of `sails` installed in the same directory as your app.');
-  console.error('To do that, run `npm install sails`');
-  console.error('');
-  console.error('Alternatively, if you have sails installed globally (i.e. you did `npm install -g sails`), you can use `sails lift`.');
-  console.error('When you run `sails lift`, your app will still use a local `./node_modules/sails` dependency if it exists,');
-  console.error('but if it doesn\'t, the app will run with the global sails instead!');
+  console.error(
+    "To run an app using `node app.js`, you usually need to have a version of `sails` installed in the same directory as your app."
+  );
+  console.error("To do that, run `npm install sails`");
+  console.error("");
+  console.error(
+    "Alternatively, if you have sails installed globally (i.e. you did `npm install -g sails`), you can use `sails lift`."
+  );
+  console.error(
+    "When you run `sails lift`, your app will still use a local `./node_modules/sails` dependency if it exists,"
+  );
+  console.error(
+    "but if it doesn't, the app will run with the global sails instead!"
+  );
   return;
 }
 
 // Validate node version
-const Utils = require('./api/services/Utils');
-if(!Utils.isRuntimeVersionSupported()) {
-  sails.log.error("Incompatible Node.js version. Please make sure that you have Node.js >= 8 installed.")
+const Utils = require("./api/services/Utils");
+if (!Utils.isRuntimeVersionSupported()) {
+  sails.log.error(
+    "Incompatible Node.js version. Please make sure that you have Node.js >= 8 installed."
+  );
   process.exit(1);
 }
-
 
 // Try to get `rc` dependency
 let rc;
 
 try {
-  rc = require('rc');
+  rc = require("run-con");
 } catch (e0) {
-  try {
-    rc = require('sails/node_modules/rc');
-  } catch (e1) {
-    console.error('Could not find dependency: `rc`.');
-    console.error('Your `.sailsrc` file(s) will be ignored.');
-    console.error('To resolve this, run:');
-    console.error('npm install rc --save');
-    rc = function () {
-      return {};
-    };
-  }
+  console.error("Could not find dependency: `rc`.");
+  console.error("Your `.sailsrc` file(s) will be ignored.");
+  console.error("To resolve this, run:");
+  console.error("npm install rc --save");
+
+  rc = function () {
+    return {};
+  };
 }
 
 require("./makedb")(function (err) {
@@ -69,8 +75,5 @@ require("./makedb")(function (err) {
   }
 
   // Start server
-  sails.lift(rc('sails'));
+  sails.lift(rc("sails"));
 });
-
-
-

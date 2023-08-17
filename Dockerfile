@@ -1,10 +1,14 @@
-FROM node:16-alpine
+FROM node:20-alpine as base
+
+USER root
 
 ARG DB_ADAPTER=all
 
 RUN apk upgrade --update \
     && apk add bash git ca-certificates python3 \
     && npm install -g bower
+
+FROM base as pkgs
 
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
@@ -18,6 +22,8 @@ RUN bash /app/clean_packages.sh ${DB_ADAPTER}
 
 RUN npm --unsafe-perm --omit=dev ci \
     && apk del git
+
+FROM pkgs as apps
 
 COPY . /app
 

@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var defSeedData = require('../../config/default-seed-data.js');
-var uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 
 /**
  * load-db.js
