@@ -160,13 +160,17 @@ var KongService = {
     if(!sizeParam)  url += url.indexOf('?') > -1 ? `&size=1000` : `?size=1000`;
 
     sails.log.debug('KongService: listAllCb', url);
+
     var getData = function (previousData, url) {
       unirest.get(url)
         .headers(KongService.headers(req, true))
         .end(function (response) {
           if (response.error) return cb(response)
           var data = previousData.concat(_.get(response, 'body.data', []));
-          if (_.get(response, 'body.next')) {
+          const nextUrl = _.get(response, 'body.next')
+
+          if (nextUrl) {
+            sails.log.debug('KongService: listAllCb', url, nextUrl);
             getData(data, (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + response.body.next);
           }
           else {
@@ -185,6 +189,7 @@ var KongService = {
           }
         });
     };
+
     getData([], `${url}`);
   },
 
