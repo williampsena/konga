@@ -20,5 +20,4 @@ push_latest() {
 }
 
 build_docker "all" $VERSION
-build_docker "mongo" "mongo"
 

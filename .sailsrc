@@ -1,10 +1,14 @@
 {
   "generators": {
-    "modules": {
-
-    }
+    "modules": {}
   },
   "hooks": {
-    "session" : false
+    "session": false
+  },
+  "hooks": {
+    "grunt": false
+  },
+  "paths": {
+    "public": "./static/public"
   }
 }

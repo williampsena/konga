@@ -12,13 +12,8 @@ FROM base as pkgs
 
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
-COPY bower.json /app/bower.json
 
 WORKDIR /app
-
-COPY ./scripts/clean_packages.sh /app/clean_packages.sh
-
-RUN bash /app/clean_packages.sh ${DB_ADAPTER}
 
 RUN npm --unsafe-perm --omit=dev ci \
     && apk del git
