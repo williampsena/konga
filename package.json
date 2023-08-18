@@ -42,8 +42,6 @@
     "sails-hook-orm": "^4.0.2",
     "sails-hook-sockets": "^2.0.4",
     "sails-mongo": "^2.0.1",
-    "sendmail": "^1.6.1",
-    "supertest": "^6.3.3",
     "unirest": "^0.6.0",
     "uuid": "^9.0.0",
     "validator": "^13.11.0"
