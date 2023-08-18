@@ -5,17 +5,16 @@ USER root
 ARG DB_ADAPTER=all
 
 RUN apk upgrade --update \
-    && apk add bash git ca-certificates python3 \
-    && npm install -g bower
+    && apk add bash git ca-certificates python3 yarn openssh-client
 
 FROM base as pkgs
 
 COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
+COPY yarn.lock /app/yarn.lock
 
 WORKDIR /app
 
-RUN npm --unsafe-perm --omit=dev ci \
+RUN yarn install --frozen-lockfile --production=yes \
     && apk del git
 
 FROM pkgs as apps
