@@ -2,7 +2,7 @@
 
 > This fork is an attempt to address Konga's security vulnerabilities by lowering the number of default node packages. As a database, I propose Mongo or Sqlite.
 
-A pushed image at https://hub.docker.com/repository/docker/willsenabr/konga is the outcome of this.
+A pushed image at https://hub.docker.com/r/willsenabr/konga is the outcome of this.
 
 # Changes
 ## Grunt / Bower
