@@ -10,6 +10,21 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  konga:
+    image: willsenabr/konga
+    networks:
+      - kong-dev
+    ports:
+      - 1337:1337
+    environment:
+      - DB_ADAPTER=mongo
+      - DB_HOST=localhost
+      - DB_PORT=27017
+      - DB_DATABASE=konga
+      - DB_URI=mongodb://mongodb:27017/konga
+      - KONGA_URL=http://localhost:1337
+      - NODE_ENV=development
+
 volumes:
   mongo-data:
 

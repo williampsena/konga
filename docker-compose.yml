@@ -1,5 +1,7 @@
 version: "3"
 
+name: kong-dev
+
 networks:
  kong-net:
   driver: bridge
@@ -10,7 +12,7 @@ services:
   # Postgres: The database used by Kong
   #######################################
   kong-database:
-    image: postgres:9.6
+    image: postgres:15
     restart: always
     networks:
       - kong-net
@@ -30,7 +32,7 @@ services:
   # Kong database migration
   #######################################
   kong-migration:
-    image: kong:2.5
+    image: kong:3.3.1-alpine
     command: "kong migrations bootstrap"
     networks:
       - kong-net
@@ -47,17 +49,20 @@ services:
   # Kong: The API Gateway
   #######################################
   kong:
-    image: kong:2.5
+    image: kong:3.3.1-alpine
     restart: always
     networks:
       - kong-net
     environment:
+      KONG_LOG_LEVEL: info
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_PG_HOST: kong-database
       KONG_PG_PASSWORD: kong
+      KONG_STATUS_LISTEN: 0.0.0.0:8100
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
       KONG_PROXY_LISTEN: 0.0.0.0:8000
       KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001
-      KONG_CUSTOM_PLUGINS: kong-plugin-moesif
     depends_on:
       - kong-database
     healthcheck:
