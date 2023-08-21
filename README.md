@@ -1,4 +1,6 @@
-# Attention
+# Konga's fork
+
+![workflow](https://github.com/williampsena/konga/actions/workflows/main.yml/badge.svg)
 
 > This fork is an attempt to address Konga's security vulnerabilities by lowering the number of default node packages. As a database, I propose Mongo or Sqlite.
 
