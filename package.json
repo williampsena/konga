@@ -22,7 +22,7 @@
   "author": "Tselentis Panagis",
   "license": "MIT",
   "dependencies": {
-    "@slack/webhook": "^6.1.0",
+    "@slack/webhook": "^7.0.0",
     "async": "^3.2.4",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
