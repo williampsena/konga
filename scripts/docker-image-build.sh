@@ -1,7 +1,6 @@
 #!/bin/bash
 
-VERSION="${1:-nigthly}"
-IMAGE_BASE="willsenabr/konga"
+source "scripts/_vars.sh"
 
 build_docker() {
     local tag=$1

@@ -38,7 +38,6 @@ function buildDataStoreConfig() {
         process.env.DB_PORT || "3306"
       }/${process.env.DB_DATABASE || "konga"}`,
     schema: process.env.DB_PG_SCHEMA || "public",
-    poolSize: process.env.DB_POOLSIZE || 10,
     ssl: process.env.DB_SSL ? true : false,
   };
 

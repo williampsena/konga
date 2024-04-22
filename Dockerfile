@@ -33,6 +33,8 @@ EXPOSE 1337
 
 VOLUME /app/kongadata
 
+RUN chmod +x /app/start.sh
+
 USER konga
 
 ENTRYPOINT ["/app/start.sh"]
