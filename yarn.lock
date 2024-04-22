@@ -3079,7 +3079,7 @@ sails.io.js-dist@^1.0.0:
   resolved "https://registry.yarnpkg.com/sails.io.js-dist/-/sails.io.js-dist-1.2.1.tgz#37b6cee741c45c9b7fa812108fb061e5334c248f"
   integrity sha512-fBMdntawlqd5N/1xL9Vu6l+J5zvy86jLUf0nFDal5McUeZzUy7PpNqq+Vx/F9KgItAyFJ7RoO3YltO9dD0Q5OQ==
 
-sails@^1.5.7:
+sails@^1.5.10:
   version "1.5.10"
   resolved "https://registry.yarnpkg.com/sails/-/sails-1.5.10.tgz#bb683ba001481d9f3754c289a8459e69792509d2"
   integrity sha512-XntZIvch4aX1dqHBlgQ0d135srtwRzN8RvpaFUayzWk+iZDiLSQARJxz5WR9l+PyMjE/vHqLa5Vrr64QCW9LJA==
